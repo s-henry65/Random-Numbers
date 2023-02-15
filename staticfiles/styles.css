@@ -1,0 +1,11 @@
+h1 {
+    color: firebrick;
+  }
+
+body {
+    background-image: url("/uploaded_files/bg_numbers.jpg");
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
