@@ -64,11 +64,7 @@ def test_number(request):
         pick4 = 0
         pick5 = 0
         pick6 = 0
-        match2 = {}
-        match3 = {}
-        match4 = {}
-        match5 = {}
-        match6 = {}
+        matches = {}
         num_pick = []
         num_pick = str(request.POST['num_pick'])
         num_pick = [int(x) for x in num_pick.split()]
@@ -112,17 +108,9 @@ def test_number(request):
                 match_count += 1
                 print(f'\nDraw {draw_count} ',sorted(num_draw))
                 print(len(num_match), 'Match: ' ,sorted(num_match))
-                if len(num_match) == 2:
-                    match2[draw_count] = dict(numbers = num_draw_str, matches = num_match_str)
-                if len(num_match) == 3:
-                    match3[draw_count] = dict(numbers = num_draw_str, matches = num_match_str)
-                if len(num_match) == 4:
-                    match4[draw_count] = dict(numbers = num_draw_str, matches = num_match_str)
-                if len(num_match) == 5:
-                    match5[draw_count] = dict(numbers = num_draw_str, matches = num_match_str)
-                if len(num_match) == 6:
-                    match6[draw_count] = dict(numbers = num_draw_str, matches = num_match_str)
+                matches[draw_count] = dict(match_total = len(num_match), numbers = num_draw_str, matches = num_match_str)
             draw_count += 1
+    num_pick_str = ' '.join([str(elem) for elem in num_pick])
     # Sorting by keys
     num_count_keys = list(num_count.keys())
     num_count_keys.sort()
@@ -137,7 +125,6 @@ def test_number(request):
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
         # sorted_keys = sorted(num_count.items(), key=lambda x:x[0])
-    print('2 matches: ', match2, '3 matches: ', match3)
     print()
     print(match_count, 'Total Matches ', pick2,'2-Matches ', pick3,'3-Matches ', pick4,'4-Matches ', pick5,'5-Matches ', pick6,'6-Matches')
     print('\nSorted by times drawn (number, draws)')
@@ -145,7 +132,8 @@ def test_number(request):
     print('\nSorted by number (number, draws)')
     print(sorted_keys)
 
-    context = { '2_matches': match2, '3_matches': match3, '4_matches': match4, '5_matches': match5, '6_matches': match6, 
-        'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count,
+    context = { 'matches': matches,  
+        'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
+        'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
-    return render(request, 'random_numbers/test_numbers.html', context)
+    return render(request, 'random_numbers/test_results.html', context)

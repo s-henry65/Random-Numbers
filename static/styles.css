@@ -21,7 +21,7 @@ body {
 
   #left_title {
     position: absolute;
-    top: 260px;
+    top: 300px;
     bottom: 0;
     left: 10%;
     width: 40%;
@@ -29,7 +29,7 @@ body {
 
   #middle_title {
     position: absolute;
-    top: 260px;
+    top: 300px;
     bottom: 0;
     left: 50%;
     width: 20%;
@@ -37,7 +37,7 @@ body {
   
   #right_title {
     position: absolute;
-    top: 260px;
+    top: 300px;
     bottom: 0;
     left: 70%;
     width: 20%;
@@ -45,7 +45,7 @@ body {
 
   #left {
     position: absolute;
-    top: 310px;
+    top: 350px;
     bottom: 0;
     left: 10%;
     width: 40%;
@@ -54,7 +54,7 @@ body {
 
   #middle {
     position: absolute;
-    top: 310px;
+    top: 350px;
     bottom: 0;
     left: 50%;
     width: 20%;
@@ -63,7 +63,7 @@ body {
   
   #right {
     position: absolute;
-    top: 310px;
+    top: 350px;
     bottom: 0;
     left: 70%;
     overflow-y: scroll;

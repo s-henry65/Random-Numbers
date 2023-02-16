@@ -1,4 +1,4 @@
-.env
+env
 on_hold.txt
 db.sqlite3
 *.log
