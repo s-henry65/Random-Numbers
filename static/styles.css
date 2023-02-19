@@ -3,7 +3,6 @@ h1 {
   }
 
 body {
-    /* background-color: rgba(0, 0, 0, 0.75); */
     background-image: url("/images/abstract_numbers_sm.jpg");
     font-family: Verdana, Arial, Geneva, Tahoma, sans-serif;
     min-height: 100vh;
@@ -72,19 +71,16 @@ body {
 }
 
 #left {
-  /* background-color: #FC6E51; */
   text-align: center;
   height:100%;
 }
 
-#middle{
-  /* background-color: lightgreen; */
+#middle {
   text-align: center;
   height:100%;
 }
 
 #right {
-  /* background-color: #4FC1E9; */
   text-align: center;
   height:100%;
 }

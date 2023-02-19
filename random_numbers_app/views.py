@@ -6,6 +6,9 @@ import numpy as np
 def index(request):
     return render(request, 'random_numbers/index.html')
 
+def exit(request):
+    return render(request, 'random_numbers/exit.html')
+
 def generate_random_num(request):
     if request.method == 'GET':
         return render(request, 'random_numbers/generate_nums.html') 
@@ -44,11 +47,11 @@ def generate_random_num(request):
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
-    print('\nResults: ', results)
-    print('\nSorted by times drawn (number, draws)')
-    print(sorted_values)
-    print('\nSorted by number (number, draws)')
-    print(sorted_keys)
+    # print('\nResults: ', results)
+    # print('\nSorted by times drawn (number, draws)')
+    # print(sorted_values)
+    # print('\nSorted by number (number, draws)')
+    # print(sorted_keys)
     context = {
         'results': results, 'times_drawn': sorted_values, 'by_number': sorted_keys,
     }
@@ -106,8 +109,8 @@ def test_number(request):
                 pick6 += 1
             if len(num_match) >= match_num:
                 match_count += 1
-                print(f'\nDraw {draw_count} ',sorted(num_draw))
-                print(len(num_match), 'Match: ' ,sorted(num_match))
+                # print(f'\nDraw {draw_count} ',sorted(num_draw))
+                # print(len(num_match), 'Match: ' ,sorted(num_match))
                 matches[draw_count] = dict(match_total = len(num_match), numbers = num_draw_str, matches = num_match_str)
             draw_count += 1
     num_pick_str = ' '.join([str(elem) for elem in num_pick])
@@ -125,15 +128,26 @@ def test_number(request):
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
         # sorted_keys = sorted(num_count.items(), key=lambda x:x[0])
-    print()
-    print(match_count, 'Total Matches ', pick2,'2-Matches ', pick3,'3-Matches ', pick4,'4-Matches ', pick5,'5-Matches ', pick6,'6-Matches')
-    print('\nSorted by times drawn (number, draws)')
-    print(sorted_values)
-    print('\nSorted by number (number, draws)')
-    print(sorted_keys)
-
+    # print()
+    # print(match_count, 'Total Matches ', pick2,'2-Matches ', pick3,'3-Matches ', pick4,'4-Matches ', pick5,'5-Matches ', pick6,'6-Matches')
+    # print('\nSorted by times drawn (number, draws)')
+    # print(sorted_values)
+    # print('\nSorted by number (number, draws)')
+    # print(sorted_keys)
     context = { 'matches': matches,  
         'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
     return render(request, 'random_numbers/test_results.html', context)
+
+def or_lotto(request):
+    if request.method == 'GET':
+        return render(request, 'random_numbers/oregon_lotto.html') 
+
+def get_lotto_results(request):
+    if request.method == 'GET':
+        
+    # context = {
+    #     'results': oregon_results,
+    # }
+        return render(request, 'random_numbers/oregon_lotto.httml')
