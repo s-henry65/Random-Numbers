@@ -15,8 +15,11 @@
             error delectus eligendi odio ipsum. Iusto error voluptatibus commodi harum quam.
         </div>
     </div>
+    {% for key, value in results.items %}
+    {{ key}} {{ value }}<br>
+    {% endfor %}
     <div>
-        <a class="btn btn-outline-success mt-5" href="templates/random_numbers/results.php/" role="button">Get Results</a>
+        <a class="btn btn-outline-success mt-5" href="/get_lotto_results/" role="button">Get Results</a>
     </div>
 </div>
 <footer class="mt-auto bg-black bg-opacity-50">

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-import random
+import random, requests
 from collections import OrderedDict
 import numpy as np
 
@@ -144,10 +144,22 @@ def or_lotto(request):
     if request.method == 'GET':
         return render(request, 'random_numbers/oregon_lotto.html') 
 
+
 def get_lotto_results(request):
-    if request.method == 'GET':
+    # response = requests.get('https://www.magayo.com/api/results.php?api_key=qsQbd84GxXPDvBTKtK&game=us_or_mega')
+    # oregon_results = response.json()
+    # print('Results: ', oregon_results)
+
+    url = "https://lottery-results.p.rapidapi.com/games-by-state/United%20States/OR"
+    headers = {
+        "X-RapidAPI-Key": "873e32960cmsha6389853c19baeap16d9a3jsna6a9817167c6",
+        "X-RapidAPI-Host": "lottery-results.p.rapidapi.com"
+    }
+    response = requests.request("GET", url, headers=headers)
+    results = response.json()
+    print(results)
+
+    context = {'results': results,
         
-    # context = {
-    #     'results': oregon_results,
-    # }
-        return render(request, 'random_numbers/oregon_lotto.httml')
+    }
+    return render(request, 'random_numbers/oregon_lotto.html', context)
