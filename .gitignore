@@ -1,6 +1,5 @@
 env
 on_hold.txt
-db.sqlite3
 *.log
 *.pot
 *.pyc
