@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import random, requests
 from collections import OrderedDict
 import numpy as np
+from random_numbers_app.models import LotteryResults
 
 def index(request):
     return render(request, 'random_numbers/index.html')
@@ -141,16 +142,16 @@ def test_number(request):
     return render(request, 'random_numbers/test_results.html', context)
 
 def or_lotto(request):
+    results = LotteryResults.objects.all()
+    context = {
+        'results': results,
+    }
     if request.method == 'GET':
-        return render(request, 'random_numbers/oregon_lotto.html') 
+        return render(request, 'random_numbers/oregon_lotto.html', context) 
 
 
 def get_lotto_results(request):
-    # response = requests.get('https://www.magayo.com/api/results.php?api_key=qsQbd84GxXPDvBTKtK&game=us_or_mega')
-    # oregon_results = response.json()
-    # print('Results: ', oregon_results)
-
-    url = "https://lottery-results.p.rapidapi.com/games-by-state/United%20States/OR"
+    url = "https://lottery-results.p.rapidapi.com/games-by-state/US/OR"
     headers = {
         "X-RapidAPI-Key": "873e32960cmsha6389853c19baeap16d9a3jsna6a9817167c6",
         "X-RapidAPI-Host": "lottery-results.p.rapidapi.com"
@@ -158,8 +159,160 @@ def get_lotto_results(request):
     response = requests.request("GET", url, headers=headers)
     results = response.json()
     print(results)
+    
+    # Powerball
+    lotto_data = LotteryResults.objects.get(id=2)
+    lotto_data.game_name = results['0']['name']
+    lotto_data.draw_date = results['0']['plays'][0]['draws'][0]['date']
+    pb_nums = results['0']['plays'][0]['draws'][0]['numbers']
+    pb_numbers = []
+    for num in pb_nums:
+        if num['order'] <= 5:
+            pb_numbers.append(int(num['value']))
+    pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+    lotto_data.numbers = pb_numbers_str
+    lotto_data.special_num = results['0']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.next_draw = results['0']['plays'][0]['draws'][0]['nextDrawDate']
+    lotto_data.jackpot = results['0']['plays'][0]['draws'][0]['nextDrawJackpot']
+    lotto_data.save()
 
-    context = {'results': results,
-        
-    }
-    return render(request, 'random_numbers/oregon_lotto.html', context)
+    # Mega Millions
+    lotto_data = LotteryResults.objects.get(id=4)
+    lotto_data.game_name = results['1']['name']
+    lotto_data.draw_date = results['1']['plays'][0]['draws'][0]['date']
+    pb_nums = results['1']['plays'][0]['draws'][0]['numbers']
+    pb_numbers = []
+    for num in pb_nums:
+        if num['order'] <= 5:
+            pb_numbers.append(int(num['value']))
+    pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+    lotto_data.numbers = pb_numbers_str
+    lotto_data.special_num = results['1']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.next_draw = results['1']['plays'][0]['draws'][0]['nextDrawDate']
+    lotto_data.jackpot = results['1']['plays'][0]['draws'][0]['nextDrawJackpot']
+    lotto_data.save()
+    
+    # mega_millions = {}
+    # mega_millions['game'] = results['1']['name']
+    # mega_millions['draw date'] = results['1']['plays'][0]['draws'][0]['date']
+    # mega_nums = results['1']['plays'][0]['draws'][0]['numbers']
+    # mega_numbers = []
+    # for num in mega_nums:
+    #     if num['order'] <= 5:
+    #         mega_numbers.append(int(num['value']))
+    # mega_numbers_str = ' '.join([str(elem) for elem in mega_numbers])
+    # mega_millions['numbers'] = mega_numbers_str
+    # mega_millions['megaball'] = results['1']['plays'][0]['draws'][0]['numbers'][5]['value']
+    # mega_millions['next draw'] = results['1']['plays'][0]['draws'][0]['nextDrawDate']
+    # mega_millions['jackpot'] = results['1']['plays'][0]['draws'][0]['nextDrawJackpot']
+    # print('\nMega Millions: ', mega_millions)
+
+    # Megabucks
+    lotto_data = LotteryResults.objects.get(id=5)
+    lotto_data.game_name = results['2']['name']
+    lotto_data.draw_date = results['2']['plays'][0]['draws'][0]['date']
+    pb_nums = results['2']['plays'][0]['draws'][0]['numbers']
+    pb_numbers = []
+    for num in pb_nums:
+        if num['order'] <= 6:
+            pb_numbers.append(int(num['value']))
+    pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+    lotto_data.numbers = pb_numbers_str
+    lotto_data.special_num = results['2']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.next_draw = results['2']['plays'][0]['draws'][0]['nextDrawDate']
+    lotto_data.jackpot = results['2']['plays'][0]['draws'][0]['nextDrawJackpot']
+    lotto_data.save()
+
+    # megabucks = {}
+    # megabucks['game'] = results['2']['name']
+    # megabucks['draw date'] = results['2']['plays'][0]['draws'][0]['date']
+    # mega_nums = results['2']['plays'][0]['draws'][0]['numbers']
+    # mega_numbers = []
+    # for num in mega_nums:
+    #     if num['order'] <= 6:
+    #         mega_numbers.append(int(num['value']))
+    # mega_numbers_str = ' '.join([str(elem) for elem in mega_numbers])
+    # megabucks['numbers'] = mega_numbers_str
+    # megabucks['megaball'] = '-'
+    # megabucks['next draw'] = results['2']['plays'][0]['draws'][0]['nextDrawDate']
+    # megabucks['jackpot'] = results['2']['plays'][0]['draws'][0]['nextDrawJackpot']
+    # print('\nMegabucks: ', megabucks)
+
+    # Win 4 Life
+    lotto_data = LotteryResults.objects.get(id=6)
+    lotto_data.game_name = results['3']['name']
+    lotto_data.draw_date = results['3']['plays'][0]['draws'][0]['date']
+    pb_nums = results['3']['plays'][0]['draws'][0]['numbers']
+    pb_numbers = []
+    for num in pb_nums:
+        if num['order'] <= 4:
+            pb_numbers.append(int(num['value']))
+    pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+    lotto_data.numbers = pb_numbers_str
+    lotto_data.special_num = results['3']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.next_draw = results['3']['plays'][0]['draws'][0]['nextDrawDate']
+    lotto_data.jackpot = results['3']['plays'][0]['draws'][0]['nextDrawJackpot']
+    lotto_data.save()
+     
+    # win4life = {}
+    # win4life['game'] = results['3']['name']
+    # win4life['draw date'] = results['3']['plays'][0]['draws'][0]['date']
+    # win_nums = results['3']['plays'][0]['draws'][0]['numbers']
+    # win_numbers = []
+    # for num in win_nums:
+    #     if num['order'] <= 4:
+    #         win_numbers.append(int(num['value']))
+    # win_numbers_str = ' '.join([str(elem) for elem in win_numbers])
+    # win4life['numbers'] = win_numbers_str
+    # win4life['megaball'] = '-'
+    # win4life['next draw'] = results['3']['plays'][0]['draws'][0]['nextDrawDate']
+    # win4life['jackpot'] = results['3']['plays'][0]['draws'][0]['nextDrawJackpot']
+    # print('\nWin 4 Life: ', win4life)
+
+    # Lucky Lines
+    lotto_data = LotteryResults.objects.get(id=7)
+    lotto_data.game_name = results['4']['name']
+    lotto_data.draw_date = results['4']['plays'][0]['draws'][0]['date']
+    pb_nums = results['4']['plays'][0]['draws'][0]['numbers']
+    pb_numbers = []
+    for num in pb_nums:
+        if num['order'] <= 8:
+            pb_numbers.append(int(num['value']))
+    pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+    lotto_data.numbers = pb_numbers_str
+    lotto_data.special_num = results['4']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.next_draw = results['4']['plays'][0]['draws'][0]['nextDrawDate']
+    lotto_data.jackpot = results['4']['plays'][0]['draws'][0]['nextDrawJackpot']
+    lotto_data.save()
+
+    # luckylines = {}
+    # luckylines['game'] = results['4']['name']
+    # luckylines['draw date'] = results['4']['plays'][0]['draws'][0]['date']
+    # lucky_nums = results['4']['plays'][0]['draws'][0]['numbers']
+    # lucky_numbers = []
+    # for num in lucky_nums:
+    #     if num['order'] <= 8:
+    #         lucky_numbers.append(int(num['value']))
+    # lucky_numbers_str = ' '.join([str(elem) for elem in lucky_numbers])
+    # luckylines['numbers'] = lucky_numbers_str
+    # luckylines['megaball'] = '-'
+    # luckylines['next draw'] = results['4']['plays'][0]['draws'][0]['nextDrawDate']
+    # luckylines['jackpot'] = results['4']['plays'][0]['draws'][0]['nextDrawJackpot']
+    # print('\nLucky Lines: ', luckylines)
+      
+    # pic4 = {}
+    # pic4['game'] = results['5']['name']
+    # pic4['draw date'] = results['5']['plays'][0]['draws'][0]['date']
+    # pic_nums = results['5']['plays'][0]['draws'][0]['numbers']
+    # pic_numbers = []
+    # for num in pic_nums:
+    #     if num['order'] <= 4:
+    #         pic_numbers.append(int(num['value']))
+    # pic_numbers_str = ' '.join([str(elem) for elem in pic_numbers])
+    # pic4['numbers'] = pic_numbers_str
+    # pic4['megaball'] = '-'
+    # pic4['next draw'] = results['5']['plays'][0]['draws'][0]['nextDrawDate']
+    # pic4['jackpot'] = results['5']['plays'][0]['draws'][0]['nextDrawJackpot']
+ 
+    return redirect('random_numbers/oregon_lotto.html')
+
