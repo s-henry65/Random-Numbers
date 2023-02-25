@@ -3,6 +3,7 @@ import random, requests
 from collections import OrderedDict
 import numpy as np
 from random_numbers_app.models import LotteryResults
+from decouple import config
 
 def index(request):
     return render(request, 'random_numbers/index.html')
@@ -151,9 +152,10 @@ def or_lotto(request):
 
 
 def get_lotto_results(request):
+    key = config("lotto_key")
     url = "https://lottery-results.p.rapidapi.com/games-by-state/US/OR"
     headers = {
-        "X-RapidAPI-Key": "873e32960cmsha6389853c19baeap16d9a3jsna6a9817167c6",
+        "X-RapidAPI-Key": key,
         "X-RapidAPI-Host": "lottery-results.p.rapidapi.com"
     }
     response = requests.request("GET", url, headers=headers)
@@ -218,7 +220,7 @@ def get_lotto_results(request):
             pb_numbers.append(int(num['value']))
     pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
     lotto_data.numbers = pb_numbers_str
-    lotto_data.special_num = results['2']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.special_num = '-'
     lotto_data.next_draw = results['2']['plays'][0]['draws'][0]['nextDrawDate']
     lotto_data.jackpot = results['2']['plays'][0]['draws'][0]['nextDrawJackpot']
     lotto_data.save()
@@ -249,7 +251,7 @@ def get_lotto_results(request):
             pb_numbers.append(int(num['value']))
     pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
     lotto_data.numbers = pb_numbers_str
-    lotto_data.special_num = results['3']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.special_num = '-'
     lotto_data.next_draw = results['3']['plays'][0]['draws'][0]['nextDrawDate']
     lotto_data.jackpot = results['3']['plays'][0]['draws'][0]['nextDrawJackpot']
     lotto_data.save()
@@ -280,7 +282,7 @@ def get_lotto_results(request):
             pb_numbers.append(int(num['value']))
     pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
     lotto_data.numbers = pb_numbers_str
-    lotto_data.special_num = results['4']['plays'][0]['draws'][0]['numbers'][5]['value']
+    lotto_data.special_num = '-'
     lotto_data.next_draw = results['4']['plays'][0]['draws'][0]['nextDrawDate']
     lotto_data.jackpot = results['4']['plays'][0]['draws'][0]['nextDrawJackpot']
     lotto_data.save()

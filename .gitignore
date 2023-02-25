@@ -6,3 +6,4 @@ on_hold.txt
 __pycache__
 Pipfile.lock
 Pipfile
+.env
