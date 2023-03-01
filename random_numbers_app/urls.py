@@ -9,5 +9,8 @@ urlpatterns = [
     path('exit/', views.exit, name = 'exit'),
     path('or_lotto/', views.or_lotto, name = 'or_lotto'),
     path('get_lotto_results/', views.get_lotto_results, name = 'get_lotto_results'),
-    
+    path('generate_powerball/', views.generate_powerball, name = 'generate_powerball'),
+    path('generate_megamill/', views.generate_megamill, name = 'generate_megamill'),
+    path('test_powerball/', views.test_powerball, name = 'test_powerball'),
+    path('test_megamill/', views.test_megamill, name = 'test_megamill'),
 ]

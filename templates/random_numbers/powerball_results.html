@@ -2,7 +2,7 @@
 <div class="container-md">
     <div class="container mt-3">
         <div class="col-md-12 fs-2 fw-semibold text-center text-warning" id="title">
-            Test Results
+             Powerball Test Results
         </div>
         <div class="justify-content-center text-center mt-2">
             <div class="mt-3 mb-3 table-responsive form-control bg-white text-black p-3 border border-secondary">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <a class="btn btn-outline-warning me-3" onClick="window.location.reload()">Refresh</a>
-        <a class="btn btn-outline-warning" href="/test_number/" role="button">New Test</a>
+        <a class="btn btn-outline-warning" href="/test_powerball/" role="button">New Test</a>
     </div>
 </div>
 <div class="results mx-2">
@@ -68,9 +68,9 @@
         </div>
 
         <div class="col-sm-4" id="middle">
-            {% if times_drawn %}
+          
             <div class="sticky-top pb-2 pt-2 bg-secondary text-white fs-5 fw-semibold" id="title">
-                Stats by Draw
+                Number Stats
             </div>
             <div class="mt-3 mb-3 table-responsive form-control bg-white text-black p-3 border border-secondary">
                 <table class="table text-black">
@@ -88,14 +88,14 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                {% endif %}
+              
             </div>
         </div>
 
         <div class="col-sm-4" id="right">
-            {% if by_number %}
+           
             <div class="sticky-top pb-2 pt-2 bg-secondary text-white fs-5 fw-semibold" id="title">
-                Stats by Number
+                Powerball Stats
             </div>
             <div class="mt-3 mb-3 table-responsive form-control bg-white text-black p-3 border border-secondary">
                 <table class="table text-black">
@@ -105,7 +105,7 @@
                             <th scope="col">Draws</th>
                     </thead>
                     <tbody>
-                        {% for key, value in by_number.items %}
+                        {% for key, value in powerball.items %}
                         <tr>
                             <td> {{ key }} </td>
                             <td> {{ value }} </td>
@@ -113,7 +113,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                {% endif %}
+               
             </div>
         </div>
     </div>

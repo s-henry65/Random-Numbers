@@ -2,19 +2,13 @@
 <div class="container-md">
     <div class="container mt-3">
         <div class="col-md-12 text-center fs-2 fw-semibold mt-5 text-warning" id="title">
-            Generate Random Numbers
+            Generate Mega Millions Numbers
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <form action="{%url 'generate_random_num' %}" method="POST">
+            <form action="{% url 'generate_megamill' %}" method="POST">
                 {% csrf_token %}
                 <div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text bg-secondary border-secondary text-white"
-                            id="inputGroup-sizing-default">Amount of Numbers</span>
-                        <input type="text" name="num_amount" class="form-control bg-white text-black"
-                            placeholder="4-8 is most common" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default" required>
-                    </div>
+                    
                     <div class="input-group mb-4">
                         <span class="input-group-text bg-secondary border-secondary text-white"
                             id="inputGroup-sizing-default">Number of Draws</span>
@@ -42,7 +36,7 @@
                         <thead>
                             <tr class="bg-info bg-opacity-50">
                                 <th scope="col">Draw #</th>
-                                <th scope="col">Numbers</th>
+                                <th scope="col">Numbers & MB</th>
                         </thead>
                         <tbody>
                             {% for key, value in results.items %}
@@ -60,7 +54,7 @@
             <div class="col-sm-4" id="middle">
                 {% if times_drawn %}
                 <div class="sticky-top pb-2 pt-2 bg-secondary text-white fs-5 fw-semibold" id="title">
-                    Stats by Draw
+                    Number Stats
                 </div>
                 <div class="mt-3 mb-3 table-responsive form-control bg-white text-black p-3 border border-secondary">
                     <table class="table text-black">
@@ -83,10 +77,10 @@
             </div>
 
             <div class="col-sm-4" id="right">
-                {% if by_number %}
+                {% if megaball %}
                 <div class="sticky-top pb-2 pt-2 bg-secondary text-white fs-5 fw-semibold" id="title">
-                    Stats by Number
-                </div>
+                    Mega Ball Stats
+                </div> 
                 <div class="mt-3 mb-3 table-responsive form-control bg-white text-black p-3 border border-secondary">
                     <table class="table text-black">
                         <thead>
@@ -95,7 +89,7 @@
                                 <th scope="col">Draws</th>
                         </thead>
                         <tbody>
-                            {% for key, value in by_number.items %}
+                            {% for key, value in megaball.items %}
                             <tr>
                                 <td> {{ key }} </td>
                                 <td> {{ value }} </td>
