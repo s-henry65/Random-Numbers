@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-md text-white">
+    <div class="container mt-3">     
+            <div class="col-md-12 text-center fs-2 fw-semibold mt-5 text-warning" id="title">
+                Test Lucky Lines Numbers
+            </div>
+        <div class="d-flex justify-content-center mt-3">
+            <form action="{% url 'test_luckylines' %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <div class="input-group mb-4">
+                        <span class="input-group-text bg-secondary text-white border-secondary"
+                            id="inputGroup-sizing-default">Numbers</span>
+                        <input type="text" name="num_pick" class="form-control bg-white text-black border-black"
+                            placeholder="4-8 numbers, 1-48" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div class="input-group mb-4">
+                        <span class="input-group-text bg-secondary border-secondary text-white"
+                            id="inputGroup-sizing-default">Number of Draws</span>
+                        <input type="text" name="draw" class="form-control bg-white text-black"
+                            placeholder="156 = 1 year @ 3/week" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div class="input-group mb-4">
+                        <span class="input-group-text bg-secondary border-secondary border-secondary text-white"
+                            id="inputGroup-sizing-default">Number of Matches to Show</span>
+                        <input type="text" name="match_num" class="form-control bg-white text-black" placeholder="2-6"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-outline-warning">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

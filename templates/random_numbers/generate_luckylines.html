@@ -2,19 +2,13 @@
 <div class="container-md">
     <div class="container mt-3">
         <div class="col-md-12 text-center fs-2 fw-semibold mt-5 text-warning" id="title">
-            Generate Random Numbers
+            Generate Lucky Lines Numbers
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <form action="{%url 'generate_random_num' %}" method="POST">
+            <form action="{%url 'generate_luckylines' %}" method="POST">
                 {% csrf_token %}
                 <div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text bg-secondary border-secondary text-white"
-                            id="inputGroup-sizing-default">Amount of Numbers</span>
-                        <input type="text" name="num_amount" class="form-control bg-white text-black"
-                            placeholder="4 or 6 is most common" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default" required>
-                    </div>
+                    
                     <div class="input-group mb-4">
                         <span class="input-group-text bg-secondary border-secondary text-white"
                             id="inputGroup-sizing-default">Number of Draws</span>
@@ -24,9 +18,6 @@
                     </div>
                     <div>
                         <button type="submit" class="btn btn-outline-warning">Submit</button>
-                        {% if results %}
-                        <a class="btn btn-outline-warning ms-2" onClick="window.location.reload()">Refresh</a>
-                        {% endif %}
                     </div>
                 </div>
             </form>

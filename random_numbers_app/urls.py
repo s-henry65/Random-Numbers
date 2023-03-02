@@ -13,4 +13,6 @@ urlpatterns = [
     path('generate_megamill/', views.generate_megamill, name = 'generate_megamill'),
     path('test_powerball/', views.test_powerball, name = 'test_powerball'),
     path('test_megamill/', views.test_megamill, name = 'test_megamill'),
+    path('generate_luckylines/', views.generate_luckylines, name = 'generate_luckylines'),
+    path('test_luckylines/', views.test_luckylines, name = 'test_luckylines'),
 ]

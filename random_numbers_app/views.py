@@ -51,15 +51,53 @@ def generate_random_num(request):
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
-    # print('\nResults: ', results)
-    # print('\nSorted by times drawn (number, draws)')
-    # print(sorted_values)
-    # print('\nSorted by number (number, draws)')
-    # print(sorted_keys)
+
     context = {
         'results': results, 'times_drawn': sorted_values, 'by_number': sorted_keys,
     }
     return render(request, 'random_numbers/generate_nums.html', context)
+
+def generate_luckylines(request):
+    if request.method == 'GET':
+        return render(request, 'random_numbers/generate_luckylines.html') 
+    elif request.method == 'POST':
+        num_count = {} # keeps track of how many times a number is drawn
+        results = {}
+        draw_count = 1
+        draw = int(request.POST['draw'])
+        while draw_count <= draw:
+            counter = 0
+            num_draw = []
+            nums = [[1, 2, 3, 4 ], [ 5, 6, 7, 8 ], [ 9, 10, 11, 12 ], [ 13, 14, 15, 16 ], [ 17, 18, 19, 20 ],
+                    [ 21, 22, 23, 24 ], [ 25, 26, 27, 28 ], [ 29, 30, 31, 32 ]]
+            while counter <= 7:
+                pick = (random.choice(nums[counter]))
+                num_count[pick] = num_count.get(pick, 0) + 1
+                num_draw.append(pick)
+                counter += 1
+            num_draw = sorted(num_draw)
+            num_draw_str = ' '.join([str(elem) for elem in num_draw])
+            results[draw_count] = num_draw_str
+            draw_count += 1
+
+    # Sorting by keys
+    num_count_keys = list(num_count.keys())
+    num_count_keys.sort()
+    sorted_keys = {i: num_count[i] for i in num_count_keys}
+        # sorted_keys = sorted(num_count.items(), key=lambda x:x[0])
+
+    # Sorting by values
+    keys = list(num_count.keys())
+    values = list(num_count.values())
+    sorted_value_index = np.argsort(values)
+    sorted_values = {keys[i]: values[i] for i in sorted_value_index}
+    sorted_values = dict(reversed(sorted_values.items()))
+        # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
+   
+    context = {
+        'results': results, 'times_drawn': sorted_values, 'by_number': sorted_keys,
+    }
+    return render(request, 'random_numbers/generate_luckylines.html', context)
 
 def generate_powerball(request):
     if request.method == 'GET':
@@ -236,19 +274,92 @@ def test_number(request):
     sorted_value_index = np.argsort(values)
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
-        # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
-        # sorted_keys = sorted(num_count.items(), key=lambda x:x[0])
-    # print()
-    # print(match_count, 'Total Matches ', pick2,'2-Matches ', pick3,'3-Matches ', pick4,'4-Matches ', pick5,'5-Matches ', pick6,'6-Matches')
-    # print('\nSorted by times drawn (number, draws)')
-    # print(sorted_values)
-    # print('\nSorted by number (number, draws)')
-    # print(sorted_keys)
+    
     context = { 'matches': matches,  
         'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
     return render(request, 'random_numbers/test_results.html', context)
+
+def test_luckylines(request):
+    if request.method == 'GET':
+        return render(request, 'random_numbers/test_luckylines.html') 
+    elif request.method == 'POST':
+        match_count = 0
+        pick2 = 0
+        pick3 = 0
+        pick4 = 0
+        pick5 = 0
+        pick6 = 0
+        pick7 = 0
+        pick8 = 0
+        matches = {}
+        num_pick = str(request.POST['num_pick'])
+        num_pick = [int(x) for x in num_pick.split()]
+        num_count = {}
+        draw_count = 1
+        draw = int(request.POST['draw'])
+        match_num = int(request.POST['match_num'])
+        while draw_count <= draw:
+            counter = 0
+            num_draw = []
+            num_match = []
+            nums = [[1, 2, 3, 4 ], [ 5, 6, 7, 8 ], [ 9, 10, 11, 12 ], [ 13, 14, 15, 16 ], [ 17, 18, 19, 20 ],
+                    [ 21, 22, 23, 24 ], [ 25, 26, 27, 28 ], [ 29, 30, 31, 32 ]]
+            while counter <= 7:
+                pick = (random.choice(nums[counter]))
+                num_count[pick] = num_count.get(pick, 0) + 1
+                num_draw.append(pick)
+                for num in num_pick:
+                    if num == pick:
+                        num_match.append(pick)
+                counter += 1
+            # change numbers drawn from list to string
+            num_draw = sorted(num_draw)
+            num_draw_str = ' '.join([str(elem) for elem in num_draw])
+            num_match = sorted(num_match)
+            num_match_str = ' '.join([str(elem) for elem in num_match])
+            # print(num_draw)
+            if len(num_match) == 2:
+                pick2 += 1
+            if len(num_match) == 3:
+                pick3 += 1
+            if len(num_match) == 4:
+                pick4 += 1
+            if len(num_match) == 5:
+                pick5 += 1
+            if len(num_match) == 6:
+                pick6 += 1
+            if len(num_match) == 7:
+                pick6 += 1
+            if len(num_match) == 8:
+                pick6 += 1
+            if len(num_match) >= match_num:
+                match_count += 1
+                # print(f'\nDraw {draw_count} ',sorted(num_draw))
+                # print(len(num_match), 'Match: ' ,sorted(num_match))
+                matches[draw_count] = dict(match_total = len(num_match), numbers = num_draw_str, matches = num_match_str)
+            draw_count += 1
+    # Test number
+    num_pick_str = ' '.join([str(elem) for elem in num_pick])
+    # Sorting by keys
+    num_count_keys = list(num_count.keys())
+    num_count_keys.sort()
+    sorted_keys = {i: num_count[i] for i in num_count_keys}
+        # sorted_keys = sorted(num_count.items(), key=lambda x:x[0])
+
+    # Sorting by values
+    keys = list(num_count.keys())
+    values = list(num_count.values())
+    sorted_value_index = np.argsort(values)
+    sorted_values = {keys[i]: values[i] for i in sorted_value_index}
+    sorted_values = dict(reversed(sorted_values.items()))
+    
+    context = { 'matches': matches,  
+        'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
+        'match4': pick4, 'match5': pick5, 'match6': pick6, 'match7': pick7, 'match8': pick8, 'test_number': num_pick_str,
+    }
+    return render(request, 'random_numbers/luckylines_results.html', context)
 
 def test_powerball(request):
     if request.method == 'GET':
@@ -512,7 +623,7 @@ def get_lotto_results(request):
         lotto_data.numbers = pb_numbers_str
         lotto_data.special_num = '-'
         lotto_data.next_draw = results['3']['plays'][0]['draws'][0]['nextDrawDate']
-        lotto_data.jackpot = results['3']['plays'][0]['draws'][0]['nextDrawJackpot']
+        lotto_data.jackpot = '$1000/wk for Life'
         lotto_data.save()
 
         # Lucky Lines
@@ -530,6 +641,71 @@ def get_lotto_results(request):
         lotto_data.next_draw = results['4']['plays'][0]['draws'][0]['nextDrawDate']
         lotto_data.jackpot = results['4']['plays'][0]['draws'][0]['nextDrawJackpot']
         lotto_data.save()
+        
+        # Pick4 @ 1
+        lotto_data = LotteryResults.objects.get(id=8)
+        lotto_data.game_name = 'Pick4 @ 1pm'
+        lotto_data.draw_date = results['5']['plays'][0]['draws'][0]['date']
+        pb_nums = results['5']['plays'][0]['draws'][0]['numbers']
+        pb_numbers = []
+        for num in pb_nums:
+            if num['order'] <= 4:
+                pb_numbers.append(int(num['value']))
+        pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+        lotto_data.numbers = pb_numbers_str
+        lotto_data.special_num = '-'
+        lotto_data.next_draw = results['5']['plays'][0]['draws'][0]['nextDrawDate']
+        lotto_data.jackpot = 'Up to $5000'
+        lotto_data.save()
+
+        # Pick4 @ 4
+        lotto_data = LotteryResults.objects.get(id=9)
+        lotto_data.game_name = 'Pick4 @ 4pm'
+        lotto_data.draw_date = results['5']['plays'][1]['draws'][0]['date']
+        pb_nums = results['5']['plays'][1]['draws'][0]['numbers']
+        pb_numbers = []
+        for num in pb_nums:
+            if num['order'] <= 4:
+                pb_numbers.append(int(num['value']))
+        pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+        lotto_data.numbers = pb_numbers_str
+        lotto_data.special_num = '-'
+        lotto_data.next_draw = results['5']['plays'][1]['draws'][0]['nextDrawDate']
+        lotto_data.jackpot = 'Up to $5000'
+        lotto_data.save()
+
+        # Pick4 @ 7
+        lotto_data = LotteryResults.objects.get(id=10)
+        lotto_data.game_name = 'Pick4 @ 7pm'
+        lotto_data.draw_date = results['5']['plays'][2]['draws'][0]['date']
+        pb_nums = results['5']['plays'][2]['draws'][0]['numbers']
+        pb_numbers = []
+        for num in pb_nums:
+            if num['order'] <= 4:
+                pb_numbers.append(int(num['value']))
+        pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+        lotto_data.numbers = pb_numbers_str
+        lotto_data.special_num = '-'
+        lotto_data.next_draw = results['5']['plays'][2]['draws'][0]['nextDrawDate']
+        lotto_data.jackpot = 'Up to $5000'
+        lotto_data.save()
+
+        # Pick4 @ 10
+        lotto_data = LotteryResults.objects.get(id=11)
+        lotto_data.game_name = 'Pick4 @ 10pm'
+        lotto_data.draw_date = results['5']['plays'][3]['draws'][0]['date']
+        pb_nums = results['5']['plays'][3]['draws'][0]['numbers']
+        pb_numbers = []
+        for num in pb_nums:
+            if num['order'] <= 4:
+                pb_numbers.append(int(num['value']))
+        pb_numbers_str = ' '.join([str(elem) for elem in pb_numbers])
+        lotto_data.numbers = pb_numbers_str
+        lotto_data.special_num = '-'
+        lotto_data.next_draw = results['5']['plays'][3]['draws'][0]['nextDrawDate']
+        lotto_data.jackpot = 'Up to $5000'
+        lotto_data.save()
+
         return redirect('or_lotto')
     except:
         print('Error in receiveing data')

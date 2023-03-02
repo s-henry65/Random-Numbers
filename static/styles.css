@@ -46,8 +46,8 @@ body {
     position: absolute;
     top: 350px;
     bottom: 0;
-    left: 10%;
-    width: 40%;
+    left: 5%;
+    width: 50%;
     overflow-y: scroll; 
   }
 
@@ -55,7 +55,7 @@ body {
     position: absolute;
     top: 350px;
     bottom: 0;
-    left: 50%;
+    left: 55%;
     width: 20%;
     overflow-y: scroll; 
   }
@@ -64,7 +64,7 @@ body {
     position: absolute;
     top: 350px;
     bottom: 0;
-    left: 70%;
+    left: 75%;
     overflow-y: scroll;
     width: 20%;
   }
@@ -91,7 +91,7 @@ body {
 }
 
 #footer a:hover {
-  color:gold
+  color:gold;
 }
 
 #title {
