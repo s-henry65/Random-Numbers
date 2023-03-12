@@ -4,6 +4,10 @@
             <div class="col-md-12 text-center fs-2 fw-semibold mt-5 text-warning" id="title">
                 Test Lucky Lines Numbers
             </div>
+            <div class="text-center mt-4 mb-5 text-light fs-5 fw-semibold">
+                <p>Pick 1 number from each group:</p>
+                (1-4) (5-8) (9-12) (13-16) (17-20) (21-24) (25-28) (29-32)
+            </div>
         <div class="d-flex justify-content-center mt-3">
             <form action="{% url 'test_luckylines' %}" method="POST">
                 {% csrf_token %}
@@ -12,7 +16,7 @@
                         <span class="input-group-text bg-secondary text-white border-secondary"
                             id="inputGroup-sizing-default">Numbers</span>
                         <input type="text" name="num_pick" class="form-control bg-white text-black border-black"
-                            placeholder="4-8 numbers, 1-48" aria-label="Sizing example input"
+                            placeholder="8 numbers" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default" required>
                     </div>
                     <div class="input-group mb-4">
@@ -25,7 +29,7 @@
                     <div class="input-group mb-4">
                         <span class="input-group-text bg-secondary border-secondary border-secondary text-white"
                             id="inputGroup-sizing-default">Number of Matches to Show</span>
-                        <input type="text" name="match_num" class="form-control bg-white text-black" placeholder="2-6"
+                        <input type="text" name="match_num" class="form-control bg-white text-black" placeholder="2-8"
                             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                     </div>
                     <div>

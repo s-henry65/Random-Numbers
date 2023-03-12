@@ -549,7 +549,7 @@ def or_lotto(request):
     if request.method == 'GET':
         return render(request, 'random_numbers/oregon_lotto.html', context) 
 
-
+# Get lottery results
 def get_lotto_results(request):
     key = config("lotto_key")
     url = "https://lottery-results.p.rapidapi.com/games-by-state/US/OR"
@@ -560,7 +560,7 @@ def get_lotto_results(request):
     try:
         response = requests.request("GET", url, headers=headers)
         results = response.json()
-        print(results)
+        # print(results)
         
         # Powerball
         lotto_data = LotteryResults.objects.get(id=2)
@@ -705,7 +705,7 @@ def get_lotto_results(request):
         lotto_data.next_draw = results['5']['plays'][3]['draws'][0]['nextDrawDate']
         lotto_data.jackpot = 'Up to $5000'
         lotto_data.save()
-
+        print('Lottery results received')
         return redirect('or_lotto')
     except:
         print('Error in receiveing data')
