@@ -3,9 +3,103 @@ h1 {
   }
 
 body {
-    background-image: url("/uploaded_files/bg_numbers.jpg");
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("/images/abstract_numbers_sm.jpg");
+    font-family: Verdana, Arial, Geneva, Tahoma, sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.results {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+
+@media (min-width: 760px){
+
+  #left_title {
+    position: absolute;
+    top: 300px;
+    bottom: 0;
+    left: 10%;
+    width: 40%;
+  }
+
+  #middle_title {
+    position: absolute;
+    top: 300px;
+    bottom: 0;
+    left: 50%;
+    width: 20%;
+  }
+  
+  #right_title {
+    position: absolute;
+    top: 300px;
+    bottom: 0;
+    left: 70%;
+    width: 20%;
+  }
+
+  #left {
+    position: absolute;
+    top: 350px;
+    bottom: 0;
+    left: 5%;
+    width: 50%;
+    overflow-y: scroll; 
+  }
+
+  #middle {
+    position: absolute;
+    top: 350px;
+    bottom: 0;
+    left: 55%;
+    width: 20%;
+    overflow-y: scroll; 
+  }
+  
+  #right {
+    position: absolute;
+    top: 350px;
+    bottom: 0;
+    left: 75%;
+    overflow-y: scroll;
+    width: 20%;
+  }
+}
+
+#left {
+  text-align: center;
+  height:100%;
+}
+
+#middle {
+  text-align: center;
+  height:100%;
+}
+
+#right {
+  text-align: center;
+  height:100%;
+}
+
+#footer a {
+  color:goldenrod;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color:gold;
+}
+
+#title {
+  text-shadow: 3px 3px 5px rgb(32, 32, 32);
+}
+
+#more {display: none;}
+
+.alert {
+  color:crimson;
 }

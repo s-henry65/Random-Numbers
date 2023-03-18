@@ -3,10 +3,12 @@ import random, requests
 from collections import OrderedDict
 import numpy as np
 from random_numbers_app.models import LotteryResults
-from decouple import config
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from .forms import ContactForm
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def index(request):
     return render(request, 'random_numbers/index.html')
@@ -552,7 +554,7 @@ def or_lotto(request):
 
 # Get lottery results
 def get_lotto_results(request):
-    key = config("lotto_key")
+    key = os.environ.get('lotto_key')
     url = "https://lottery-results.p.rapidapi.com/games-by-state/US/OR"
     headers = {
         "X-RapidAPI-Key": key,
@@ -712,6 +714,7 @@ def get_lotto_results(request):
         print('Error in receiveing data')
         return redirect('or_lotto')
 
+# Contact form
 def contact(request):
     if request.method == "GET":
         form = ContactForm()
