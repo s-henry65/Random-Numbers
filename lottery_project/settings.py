@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'random_numbers_app'
+    'random_numbers_app',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +134,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+CONTACT_EMAIL = 'scott.henry.moore@gmail.com'
+ADMIN_EMAILS = ['scott.henry.moore@gmail.com', ]
+
+# Twilio SendGrid
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = os.environ.get('email_key')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

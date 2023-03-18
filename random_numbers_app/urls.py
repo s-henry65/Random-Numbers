@@ -15,4 +15,6 @@ urlpatterns = [
     path('test_megamill/', views.test_megamill, name = 'test_megamill'),
     path('generate_luckylines/', views.generate_luckylines, name = 'generate_luckylines'),
     path('test_luckylines/', views.test_luckylines, name = 'test_luckylines'),
+    path('contact/', views.contact, name = 'contact'),
+    path('success/', views.success, name = 'success'),
 ]

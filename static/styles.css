@@ -97,3 +97,9 @@ body {
 #title {
   text-shadow: 3px 3px 5px rgb(32, 32, 32);
 }
+
+#more {display: none;}
+
+.alert {
+  color:crimson;
+}
