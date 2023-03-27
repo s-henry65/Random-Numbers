@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^f0-vye)kqsu7nns05=*5ryxcw3396gf7=$4azx=1#k$c)ug1t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -123,7 +123,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 MEDIA_URL = '/images/'
@@ -136,8 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-CONTACT_EMAIL = 'scott.henry.moore@gmail.com'
-ADMIN_EMAILS = ['scott.henry.moore@gmail.com', ]
+# CONTACT_EMAIL = 'scott.henry.moore@gmail.com'
+# ADMIN_EMAILS = ['scott.henry.moore@gmail.com', ]
 
 # Twilio SendGrid
 EMAIL_HOST = 'smtp.sendgrid.net'

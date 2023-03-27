@@ -18,7 +18,7 @@ def exit(request):
 
 def generate_random_num(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/generate_nums.html') 
+        return render(request, 'random_numbers/generate_nums.html')
     elif request.method == 'POST':
         num_count = {} # keeps track of how many times a number is drawn
         results = {}
@@ -62,7 +62,7 @@ def generate_random_num(request):
 
 def generate_luckylines(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/generate_luckylines.html') 
+        return render(request, 'random_numbers/generate_luckylines.html')
     elif request.method == 'POST':
         num_count = {} # keeps track of how many times a number is drawn
         results = {}
@@ -96,7 +96,7 @@ def generate_luckylines(request):
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
-   
+
     context = {
         'results': results, 'times_drawn': sorted_values, 'by_number': sorted_keys,
     }
@@ -104,7 +104,7 @@ def generate_luckylines(request):
 
 def generate_powerball(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/generate_powerball.html') 
+        return render(request, 'random_numbers/generate_powerball.html')
     elif request.method == 'POST':
         num_count = {} # keeps track of how many times a number is drawn
         powerball_count = {} # keeps track of how many times the powerball number is drawn
@@ -157,7 +157,7 @@ def generate_powerball(request):
 
 def generate_megamill(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/generate_megamill.html') 
+        return render(request, 'random_numbers/generate_megamill.html')
     elif request.method == 'POST':
         num_count = {} # keeps track of how many times a number is drawn
         mega_count = {} # keeps track of how many times the megaball number is drawn
@@ -210,7 +210,7 @@ def generate_megamill(request):
 
 def test_number(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/test_numbers.html') 
+        return render(request, 'random_numbers/test_numbers.html')
     elif request.method == 'POST':
         match_count = 0
         pick2 = 0
@@ -277,8 +277,8 @@ def test_number(request):
     sorted_value_index = np.argsort(values)
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
-    
-    context = { 'matches': matches,  
+
+    context = { 'matches': matches,
         'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
@@ -286,7 +286,7 @@ def test_number(request):
 
 def test_luckylines(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/test_luckylines.html') 
+        return render(request, 'random_numbers/test_luckylines.html')
     elif request.method == 'POST':
         match_count = 0
         pick2 = 0
@@ -357,8 +357,8 @@ def test_luckylines(request):
     sorted_value_index = np.argsort(values)
     sorted_values = {keys[i]: values[i] for i in sorted_value_index}
     sorted_values = dict(reversed(sorted_values.items()))
-    
-    context = { 'matches': matches,  
+
+    context = { 'matches': matches,
         'times_drawn': sorted_values, 'by_number': sorted_keys, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'match7': pick7, 'match8': pick8, 'test_number': num_pick_str,
     }
@@ -366,7 +366,7 @@ def test_luckylines(request):
 
 def test_powerball(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/test_powerball.html') 
+        return render(request, 'random_numbers/test_powerball.html')
     elif request.method == 'POST':
         match_count = 0
         pick2 = 0
@@ -448,7 +448,7 @@ def test_powerball(request):
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
 
-    context = { 'matches': matches,  
+    context = { 'matches': matches,
         'times_drawn': sorted_values, 'powerball': pb_sorted_values, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
@@ -456,7 +456,7 @@ def test_powerball(request):
 
 def test_megamill(request):
     if request.method == 'GET':
-        return render(request, 'random_numbers/test_megamill.html') 
+        return render(request, 'random_numbers/test_megamill.html')
     elif request.method == 'POST':
         match_count = 0
         pick2 = 0
@@ -538,7 +538,7 @@ def test_megamill(request):
     sorted_values = dict(reversed(sorted_values.items()))
         # sorted_values = sorted(num_count.items(), key=lambda x:x[1], reverse=True)
 
-    context = { 'matches': matches,  
+    context = { 'matches': matches,
         'times_drawn': sorted_values, 'megaball': mb_sorted_values, 'total_matches': match_count, 'match2': pick2, 'match3': pick3,
         'match4': pick4, 'match5': pick5, 'match6': pick6, 'test_number': num_pick_str,
     }
@@ -550,7 +550,7 @@ def or_lotto(request):
         'results': results,
     }
     if request.method == 'GET':
-        return render(request, 'random_numbers/oregon_lotto.html', context) 
+        return render(request, 'random_numbers/oregon_lotto.html', context)
 
 # Get lottery results
 def get_lotto_results(request):
@@ -564,7 +564,7 @@ def get_lotto_results(request):
         response = requests.request("GET", url, headers=headers)
         results = response.json()
         # print(results)
-        
+
         # Powerball
         lotto_data = LotteryResults.objects.get(id=2)
         lotto_data.game_name = results['0']['name']
@@ -644,7 +644,7 @@ def get_lotto_results(request):
         lotto_data.next_draw = results['4']['plays'][0]['draws'][0]['nextDrawDate']
         lotto_data.jackpot = results['4']['plays'][0]['draws'][0]['nextDrawJackpot']
         lotto_data.save()
-        
+
         # Pick4 @ 1
         lotto_data = LotteryResults.objects.get(id=8)
         lotto_data.game_name = 'Pick4 @ 1pm'
@@ -729,7 +729,7 @@ def contact(request):
             }
             message = "\n".join(body.values())
             try:
-                send_mail(subject, message, "scott.henry.moore@gmail.com", ["scott.henry.moore@gmail.com"])
+                send_mail(subject, message, "buzzbombscott@gmail.com", ["scott.henry.moore@gmail.com"])
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("success")
@@ -737,4 +737,3 @@ def contact(request):
 
 def success(request):
     return render(request, "random_numbers/success.html")
-    
